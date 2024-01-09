@@ -4,10 +4,35 @@ import Card from '@/components/Card/Card'
 import Rodape from '@/components/Rodape/Rodape'
 import Titulo from '@/components/Titulo/Titulo'
 import '@/pages/Inicio/Inicio.module.css'
-import videos from '@/json/db.json'
 import styles from './Inicio.module.css'
+import { useEffect, useState } from 'react'
+
 
 const Inicio = () => {
+
+  const [videos, setVideos] = useState([])
+
+  useEffect(() => {
+
+    const fetchData = async () => {
+
+      try {
+       
+        const resposta = await fetch('https://my-json-server.typicode.com/vcdomith/cinetag-api/videos')
+
+        const dados = await resposta.json()
+  
+        setVideos(dados) 
+        
+      } catch (error) {
+
+        console.error('Erro ao requisitar dados', error)
+
+      }
+    }
+
+    fetchData()
+  }, [])
 
   return (
     <>
